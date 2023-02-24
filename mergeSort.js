@@ -7,23 +7,23 @@
 //  merge sorted halves
 // }
 
-let array = [1,2,3,4,5,6,7,8,9]
+let array = [5,2,1,3,6,4]
 let low = 0
 let high = array.length
+let newArray = []
 
 function mergeSort(array, low, high) {
     if (0 == (high - 1)) {
-        return
+        console.log(array[0] + " is ready for merge")
+        newArray.push(array[0])
     } else {
         let middle = parseInt(low + high / 2)
         let leftArray = array.slice(0, middle);
         let rightArray = array.slice(middle, high);
-        console.log(leftArray + " is leftArray")
-        console.log(rightArray + " is rightArray")
         mergeSort(leftArray, low, leftArray.length)
         mergeSort(rightArray, low, rightArray.length)       
-        console.log((low) + " " + (middle) + " " + (high) + " is lowmidhigh")
     }
 }
 
-console.log(mergeSort(array, low,high))
+console.log(mergeSort(array, low, high))
+console.log(newArray)
