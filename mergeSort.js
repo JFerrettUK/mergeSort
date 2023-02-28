@@ -1,51 +1,38 @@
-let array = [5,2,1,7,6,4,3]
+let array = [5,2,1,6,4,3]
 let low = 0
 let high = array.length
 
-function mergeSort(a, low, high) {
-    if (high == 1) {
-        return array
+function mergeSort(array) {
+    const half = array.length / 2
+    
+    // Base case or terminating case
+    if(array.length < 2){
+      return array 
     }
+    
+    const left = array.splice(0, half)
+    return merge(mergeSort(left),mergeSort(array))
+  }
+  
 
-    let middle = parseInt(low + high / 2)
-    let leftArray = a.slice(0, middle);
-    let rightArray = a.slice(middle, high);
-    mergeSort(leftArray, low, leftArray.length)
-    mergeSort(rightArray, low, rightArray.length)       
-    return merge(leftArray, rightArray)
+  function merge(left, right) {
+    let arr = []
+    // Break out of loop if any one of the array gets empty
+    while (left.length && right.length) {
+        // Pick the smaller among the smallest element of left and right sub arrays 
+        if (left[0] < right[0]) {
+            arr.push(left.shift())  
+        } else {
+            arr.push(right.shift()) 
+        }
+    }
+    
+    // Concatenating the leftover elements
+    // (in case we didn't go through the entire left or right array)
+    return [ ...arr, ...left, ...right ]
 }
 
 console.log(array)
-console.log(mergeSort(array, low, high))
+console.log(mergeSort(array))
 
-function merge(a, b) {
-    let c = []
 
-    if (a.length & b.length > 0) {
-        if (a[0] > b[0]) {
-            console.log(a[0] + " > " + b[0])
-            c.push(b[0])
-            b.shift();
-        } else {
-            console.log(a[0] + " < " + b[0])
-            c.push(a[0])
-            a.shift();
-        }
-    }
-
-    if (a.length > 0) {
-        console.log("a has elements so push to end of c") 
-        c.push(a[0])
-        a.shift();
-    }
-
-    if (b.length > 0) {
-        console.log("b has elements so push to end of c") 
-        c.push(b[0])
-        b.shift();
-    }
-
-    console.log(c + " is c")
-    return c
-    //at this point, a and b should be empty
-}
