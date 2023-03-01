@@ -1,35 +1,49 @@
-let array = [5,2,1,6,4,3]
-let low = 0
-let high = array.length
+let array = [5,2,1,6,4,3,7]
 
-function mergeSort(array) {
-    const half = array.length / 2
-    
-    // Base case or terminating case
-    if(array.length < 2){
-      return array 
+function mergeSort(a) {
+    if (a.length == 1) {
+        return a
     }
-    
-    const left = array.splice(0, half)
-    return merge(mergeSort(left),mergeSort(array))
-  }
-  
 
-  function merge(left, right) {
-    let arr = []
-    // Break out of loop if any one of the array gets empty
-    while (left.length && right.length) {
-        // Pick the smaller among the smallest element of left and right sub arrays 
-        if (left[0] < right[0]) {
-            arr.push(left.shift())  
+    const half = a.length / 2
+    let leftArray = a.slice(0, half);
+    let rightArray = a.slice(half,  array.length);
+
+    // console.log(leftArray + " is left, " + half + " is middle, " + rightArray + " is right")
+
+    console.log(leftArray)
+    console.log(rightArray)
+
+    return merge(mergeSort(leftArray), mergeSort(rightArray))
+}
+
+function merge(a, b) {
+    let c = []
+
+    while (a.length && b.length) {
+        if (a[0] > b[0]) {
+            b + " is pushed"
+            c.push(b[0])
+            b.shift();
         } else {
-            arr.push(right.shift()) 
+            a + " is pushed"
+            c.push(a[0])
+            a.shift();
         }
     }
-    
-    // Concatenating the leftover elements
-    // (in case we didn't go through the entire left or right array)
-    return [ ...arr, ...left, ...right ]
+
+
+    while (a.length > 0) {
+        c.push(a[0])
+        a.shift();
+    }
+
+    while (b.length > 0) {
+        c.push(b[0])
+        b.shift();
+    }
+
+    return c
 }
 
 console.log(array)
