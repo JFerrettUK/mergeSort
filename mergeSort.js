@@ -9,11 +9,6 @@ function mergeSort(a) {
     let leftArray = a.slice(0, half);
     let rightArray = a.slice(half,  array.length);
 
-    // console.log(leftArray + " is left, " + half + " is middle, " + rightArray + " is right")
-
-    console.log(leftArray)
-    console.log(rightArray)
-
     return merge(mergeSort(leftArray), mergeSort(rightArray))
 }
 
